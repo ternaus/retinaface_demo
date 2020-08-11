@@ -5,3 +5,4 @@ numpy
 pillow
 streamlit
 retinaface_pytorch
+torchvision
