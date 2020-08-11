@@ -8,8 +8,15 @@ from retinaface.utils import vis_annotations
 
 st.set_option("deprecation.showfileUploaderEncoding", False)
 
-model = get_model("resnet50_2020-07-20", max_size=1024, device="cpu")
-model.eval()
+
+@st.cache
+def cached_model():
+    m = get_model("resnet50_2020-07-20", max_size=1024, device="cpu")
+    m.eval()
+    return m
+
+
+model = cached_model()
 
 st.title("Detect faces and key points.")
 
