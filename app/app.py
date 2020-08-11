@@ -22,6 +22,9 @@ if uploaded_file is not None:
     st.write("Detecting faces...")
     annotations = model.predict_jsons(image)
 
-    visualized_image = vis_annotations(image, annotations)
+    if len(annotations) == 0:
+        st.write("No faces detected")
+    else:
+        visualized_image = vis_annotations(image, annotations)
 
-    st.image(visualized_image, caption="After", use_column_width=True)
+        st.image(visualized_image, caption="After", use_column_width=True)
