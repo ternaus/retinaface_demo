@@ -5,6 +5,7 @@ import streamlit as st
 from PIL import Image
 from retinaface.pre_trained_models import get_model
 from retinaface.utils import vis_annotations
+import torch
 
 st.set_option("deprecation.showfileUploaderEncoding", False)
 
@@ -13,6 +14,12 @@ st.set_option("deprecation.showfileUploaderEncoding", False)
 def cached_model():
     m = get_model("resnet50_2020-07-20", max_size=1024, device="cpu")
     m.eval()
+
+    model = m.model
+    torch.quantization.prepare(model, inplace=True)
+    torch.quantization.convert(model, inplace=True)
+    m.model = model
+
     return m
 
 
