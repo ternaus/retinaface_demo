@@ -11,14 +11,14 @@ st.set_option("deprecation.showfileUploaderEncoding", False)
 
 @st.cache
 def cached_model():
-    m = get_model("resnet50_2020-07-20", max_size=1024, device="cpu")
+    m = get_model("resnet50_2020-07-20", max_size=2048, device="cpu")
     m.eval()
     return m
 
 
 model = cached_model()
 
-st.title("Detect faces and key points.")
+st.title("Detect faces and key points. For Galina.")
 
 uploaded_file = st.file_uploader("Choose an image...", type="jpg")
 
