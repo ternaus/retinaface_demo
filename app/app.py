@@ -5,6 +5,7 @@ import streamlit as st
 from PIL import Image
 from retinaface.pre_trained_models import get_model
 from retinaface.utils import vis_annotations
+import torch
 
 st.set_option("deprecation.showfileUploaderEncoding", False)
 
@@ -27,7 +28,8 @@ if uploaded_file is not None:
     st.image(image, caption="Before", use_column_width=True)
     st.write("")
     st.write("Detecting faces...")
-    annotations = model.predict_jsons(image)
+    with torch.no_grad():
+        annotations = model.predict_jsons(image)
 
     if not annotations[0]["bbox"]:
         st.write("No faces detected")
